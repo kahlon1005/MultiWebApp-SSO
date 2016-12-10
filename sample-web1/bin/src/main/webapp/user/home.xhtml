@@ -9,7 +9,12 @@
     </h:head>
 
     <h:body>
-		<h3>Welcome to Web 1</h3>
+		<h3>Welcome to Web 1  #{loginController.loginUsername}</h3>
+		
+		<h:form>
+			<h:commandButton value="Logout" action="#{loginController.logout}"/>
+		</h:form>
+		
     </h:body>
 
 </html>
