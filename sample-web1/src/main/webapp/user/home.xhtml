@@ -9,10 +9,13 @@
     </h:head>
 
     <h:body>
-		<h3>Welcome to Web 1  #{loginController.loginUsername}</h3>
+    	<h3>Web 1</h3>
+		<h4>Welcome #{loginController.loginUsername}</h4>
 		
 		<h:form>
 			<h:commandButton value="Logout" action="#{loginController.logout}"/>
+			
+			<h:commandLink value="Classification" action="classification"/>
 		</h:form>
 		
     </h:body>

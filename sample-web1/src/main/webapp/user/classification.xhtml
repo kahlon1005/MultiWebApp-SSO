@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Web1</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:commandButton value="Logout" action="#{loginController.logout}" />
+	</h:form>
+	<br />
+	<div>
+		<h:outputText value="#{classification.text}" />
+	</div>
+
+	<br />
+	<div>Pre-qualifying information</div>
+	<br />
+	<h:form>
+		<ui:repeat var="_question" value="#{classification.questions}">
+			<div>#{_question.text}</div>
+			<ui:repeat var="_response" value="#{_question.responseList}">
+				He33333 #{_response.id}
+			</ui:repeat>	
+		</ui:repeat>
+		<div>Yes</div>
+		<div>No</div>
+		<br />
+		<div>Is There a co-applicant?</div>
+		<div>Yes</div>
+		<div>No</div>
+		<br />
+		<div>What loan do you want to apply for?</div>
+		<div>-Select a loan</div>
+		<div>--Car Loan</div>
+		<div>--Personal Loan</div>
+		<div>--Student Loan</div>
+
+	</h:form>
+
+
+</h:body>
+
+</html>
