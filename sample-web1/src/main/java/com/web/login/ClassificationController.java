@@ -1,47 +1,99 @@
 package com.web.login;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import org.JCaiF.ResponseList;
-import org.JCaiF.SurveyComponent;
-import org.JCaiF.CoreComponents.SimpleContainer;
-import org.JCaiF.CoreComponents.SimpleResponseList;
-import org.JCaiF.CoreComponents.SingleSelectQuestion;
-import org.JCaiF.CoreComponents.TextListItem;
+import com.web.login.SimpleSurveyQuestion.QuestionType;
 
 @Named("classification")
-@ViewScoped
-public class ClassificationController extends SimpleContainer implements Serializable {
+@SessionScoped
+public class ClassificationController implements Serializable {
 
 	private static final long serialVersionUID = 7934702053668909263L;
+
+	SimpleContainer container = new SimpleContainer();
 	
 	@PostConstruct
-	public void init(){		 
-		this.setId("Test1");
-		this.setText("Loan Application");
+	public void init() {
+		container.setText("Loan application");
 		
-		SingleSelectQuestion q1 = new SingleSelectQuestion();
-		q1.setId("question1");
-		q1.setText("Are you 19 or over? ....");
-		q1.setValue("Yes");
+		List<SimpleSurveyQuestion> questions = new ArrayList<SimpleSurveyQuestion>();
 		
-		ResponseList q1resp = new SimpleResponseList();
-		q1resp.addListItem(new TextListItem("2", "No"));
-		q1resp.addListItem(new TextListItem("1", "Yes"));
+		ResponseListQuestion q1 = new SingleSelectQuestion();
+		q1.setText("Are you 19 or over?");
 		
-		q1.setResponseList(q1resp);
-		this.addSurveyComponent(q1);		
+		List<SimpleResponseList> rspLst = new ArrayList<SimpleResponseList>();
+		SimpleResponseList e1 = new SimpleResponseList();
+		e1.setText("Yes");
+		e1.setValue("Y");
+		rspLst.add(e1);
+
+		SimpleResponseList e2 = new SimpleResponseList();
+		e2.setText("No");
+		e2.setValue("N");
+		rspLst.add(e2);
+
+		q1.setResponseList(rspLst);
+		questions.add(q1);
+		
+		ResponseListQuestion q2 = new MultipleSelectQuestion();
+		q2.setText("No of co-applicant?");
+		
+		List<SimpleResponseList> rspLst2 = new ArrayList<SimpleResponseList>();
+		SimpleResponseList e3 = new SimpleResponseList();
+		e3.setText("One");
+		e3.setValue("1");
+		rspLst2.add(e3);
+
+		SimpleResponseList e4 = new SimpleResponseList();
+		e4.setText("Two");
+		e4.setValue("2");
+		rspLst2.add(e4);
+
+		q2.setResponseList(rspLst2);
+		questions.add(q2);
+		
+		SimpleSurveyQuestion q3 = new TextInputQuestion();
+		q3.setText("Enter your name");
+		questions.add(q3);
+		
+		container.setQuestions(questions);
+	}
+	
+	public void save(){
+		print("Save Questions ...");
+		print(container.getText());
+		for(SimpleSurveyQuestion q : container.getQuestions()){
+			if(QuestionType.MULTIPLE.equals(q.getType())){
+				if(q instanceof MultipleSelectQuestion){
+					List<String> e = ((MultipleSelectQuestion) q).getValues();
+					for(String s : e ){
+						print(s);
+					}
+				}
+			}else{
+				print(q.getText() +"  : "+ q.getValue());
+			}
+		}
 		
 	}
 	
-	public List<SurveyComponent> getQuestions(){	
-		 return (List<SurveyComponent>) this.getComponents();		 
+	private void print(String msg){
+		System.out.println(msg);
+	}
+	
+	public SimpleContainer getContainer() {
+		return container;
 	}
 
+	public void setContainer(SimpleContainer container) {
+		this.container = container;
+	}
+	
 	
 }
