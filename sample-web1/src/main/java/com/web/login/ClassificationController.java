@@ -16,10 +16,16 @@ public class ClassificationController implements Serializable {
 
 	private static final long serialVersionUID = 7934702053668909263L;
 
-	SimpleContainer container = new SimpleContainer();
+	SimpleContainer container;
 	
 	@PostConstruct
 	public void init() {
+		initialize();	
+	}
+	
+	
+	private void initialize(){
+		container = new SimpleContainer();
 		container.setText("Loan application");
 		
 		List<SimpleSurveyQuestion> questions = new ArrayList<SimpleSurveyQuestion>();
@@ -63,24 +69,24 @@ public class ClassificationController implements Serializable {
 		questions.add(q3);
 		
 		container.setQuestions(questions);
+
 	}
 	
-	public void save(){
+	public String save(){
 		print("Save Questions ...");
 		print(container.getText());
 		for(SimpleSurveyQuestion q : container.getQuestions()){
-			if(QuestionType.MULTIPLE.equals(q.getType())){
-				if(q instanceof MultipleSelectQuestion){
-					List<String> e = ((MultipleSelectQuestion) q).getValues();
-					for(String s : e ){
-						print(s);
-					}
-				}
+			if(QuestionType.MULTIPLE.equals(q.getType())){				
+				List<String> e = q.getList();;
+				for(String s : e ){
+					print(s);
+				}				
 			}else{
 				print(q.getText() +"  : "+ q.getValue());
 			}
 		}
-		
+		initialize();
+		return "success.xhtml?faces-redirect=true";
 	}
 	
 	private void print(String msg){

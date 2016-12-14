@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
@@ -26,7 +25,7 @@
 					</h:selectOneRadio>						
 				</h:panelGroup>
 				<h:panelGroup layout="block" rendered="#{_question.type == 'MULTIPLE'}">				 
-					<h:selectManyCheckbox value="#{_question.value}">
+					<h:selectManyCheckbox value="#{_question.list}">
 						<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
 					</h:selectManyCheckbox>
 				</h:panelGroup>

@@ -1,10 +1,14 @@
 package com.web.login;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SimpleSurveyQuestion{
 	
 	private QuestionType type = QuestionType.TEXT;
 	
+	private List<String> list = new ArrayList<String>();
 	private String value = "";
 	private String text = "";
 	private String id = "";
@@ -19,6 +23,12 @@ public class SimpleSurveyQuestion{
 		this.type = type;
 	}
 	
+	public List<String> getList() {
+		return list;
+	}
+	public void setList(List<String> list) {
+		this.list = list;
+	}
 	public String getValue() {
 		return value;
 	}
