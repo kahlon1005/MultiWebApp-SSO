@@ -23,7 +23,6 @@ public class ClassificationController implements Serializable {
 		initialize();	
 	}
 	
-	
 	private void initialize(){
 		container = new SimpleContainer();
 		container.setText("Loan application");
