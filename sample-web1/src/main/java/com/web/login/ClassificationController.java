@@ -24,21 +24,34 @@ public class ClassificationController implements Serializable {
 	
 	QuestionType questionType = QuestionType.MULTIPLE;
 	SimpleSurveyQuestion newQuestion = new MultipleSelectQuestion();
+	SimpleResponseList newResponse = new SimpleResponseList();
+	List<SimpleResponseList> responses = new ArrayList<SimpleResponseList>();
 	
 	public void onQuestionTypeChange(ValueChangeEvent e){
-		addNewQuestion(e.getNewValue().toString());
+		this.questionType = (QuestionType) e.getNewValue();
+		addNewQuestion();
 	}
 	
-	public void addNewQuestion(String type){
-		if (QuestionType.MULTIPLE.equals(type)){
-			newQuestion = new MultipleSelectQuestion();
-		}else if(QuestionType.SINGLE.equals(type)){
-			newQuestion = new SingleSelectQuestion();
-		}else if(QuestionType.TEXT.equals(type)){
-			newQuestion = new TextInputQuestion();
+	public void addNewQuestion(){
+		if (QuestionType.MULTIPLE.equals(questionType)){
+			this.newQuestion = new MultipleSelectQuestion();
+		}else if(QuestionType.SINGLE.equals(questionType)){
+			this.newQuestion = new SingleSelectQuestion();
+		}else if(QuestionType.TEXT.equals(questionType)){
+			this.newQuestion = new TextInputQuestion();
 		}else{
-			newQuestion = new SimpleSurveyQuestion();
+			this.newQuestion = new SimpleSurveyQuestion();
 		}
+		
+	}
+	
+	public void addNewResponse(){		
+		responses.add(newResponse);
+		newResponse = new SimpleResponseList();
+	}
+	
+	public void removeResponse(){
+		responses.remove(0);
 	}
 	
 	@PostConstruct
@@ -100,9 +113,13 @@ public class ClassificationController implements Serializable {
 	}
 	
 	public void addSurveyQuestion(){		
-		System.out.println("add new question ..." + this.questionType);
-		newContainer.addQuestion(newQuestion, questionType);
-		addNewQuestion(questionType.name());
+		System.out.println("add new question ..." + this.newQuestion.getType());
+		if(newQuestion instanceof ResponseListQuestion){
+			newQuestion.setResponseList(responses);
+			responses = new ArrayList<SimpleResponseList>();
+		}
+		newContainer.addQuestion(newQuestion);
+		addNewQuestion();
 	}
 	
 	public void removeSurveyQuestion(){
@@ -174,6 +191,20 @@ public class ClassificationController implements Serializable {
 		this.responseList = responseList;
 	}
 
-	
+	public SimpleResponseList getNewResponse() {
+		return newResponse;
+	}
+
+	public void setNewResponse(SimpleResponseList newResponse) {
+		this.newResponse = newResponse;
+	}
+
+	public List<SimpleResponseList> getResponses() {
+		return responses;
+	}
+
+	public void setResponses(List<SimpleResponseList> responses) {
+		this.responses = responses;
+	}
 	
 }

@@ -11,6 +11,7 @@
 <h:body>
 	<ui:param name="_newContainer" value="#{classification.newContainer}"/>
 	<ui:param name="_newQuestion" value="#{classification.newQuestion}"/>
+	<ui:param name="_newResponse" value="#{classification.newResponse}"/>
 	
 	<div>#{_newContainer.text}</div>
 	<br/>
@@ -32,11 +33,12 @@
 				<h:panelGroup layout="block" rendered="#{_question.type == 'TEXT'}">
 					<h:inputText value="#{_question.value}"/>
 				</h:panelGroup>
+				
 				<br />
 			</ui:repeat>			
 		</div>
 	<br/>
-	<div>Add survey questions. </div>
+	<div>Add survey questions. #{_newQuestion.type} </div>
 	<h:form>
 		<h:panelGrid columns="1">
 			<h:selectOneMenu value="#{classification.questionType}" valueChangeListener="#{classification.onQuestionTypeChange}" onchange="submit()">
@@ -45,8 +47,28 @@
 				<f:selectItem itemValue="TEXT" itemLabel="Text Input"/>
 			</h:selectOneMenu>
 			
-			
 			<h:inputText value="#{_newQuestion.text}"/>
+			<h:panelGroup layout="block" rendered="#{_newQuestion.type == 'MULTIPLE'}">				 
+				Options
+				<h:selectManyCheckbox value="#{_newQuestion.list}" disabled="true">
+					<f:selectItems value="#{classification.responses}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
+				</h:selectManyCheckbox>
+				Add New Options	
+				<h:inputText value="#{_newResponse.text}"/>
+				<h:commandButton value="Add" actionListener="#{classification.addNewResponse}"/>
+				<h:commandButton value="Remove" actionListener="#{classification.removeNewResponse}"/>				
+			</h:panelGroup>
+			<h:panelGroup layout="block" rendered="#{_newQuestion.type == 'SINGLE'}">				 
+				Options
+				<h:selectOneRadio value="#{_newQuestion.value}" disabled="true">
+					<f:selectItems value="#{classification.responses}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
+				</h:selectOneRadio>
+				Add New Options
+				<h:inputText value="#{_newResponse.text}"/>	
+				<h:commandButton value="Add" actionListener="#{classification.addNewResponse}"/>
+				<h:commandButton value="Remove" actionListener="#{classification.removeNewResponse}"/>										
+			</h:panelGroup>
+				
 			
 		</h:panelGrid>
 		<h:panelGrid columns="2" cellspacing="10">

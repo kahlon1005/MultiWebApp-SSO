@@ -37,9 +37,7 @@ public class SimpleContainer{
 		this.questions = questions;
 	}
 	
-	public void addQuestion(SimpleSurveyQuestion q, QuestionType type){
-		q.setType(type);
-		System.out.println("Question Type " + q.getType());
+	public void addQuestion(SimpleSurveyQuestion q){
 		this.getQuestions().add(q);			
 	}
 	
