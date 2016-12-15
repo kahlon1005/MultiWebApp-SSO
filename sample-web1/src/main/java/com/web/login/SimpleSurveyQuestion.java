@@ -6,7 +6,9 @@ import java.util.List;
 
 public class SimpleSurveyQuestion{
 	
-	private QuestionType type = QuestionType.TEXT;
+	private QuestionType type;
+	
+	private List<SimpleResponseList> responseList;
 	
 	private List<String> list = new ArrayList<String>();
 	private String value = "";
@@ -21,6 +23,13 @@ public class SimpleSurveyQuestion{
 	}
 	public void setType(QuestionType type) {
 		this.type = type;
+	}
+	
+	public List<SimpleResponseList> getResponseList() {
+		return responseList;
+	}
+	public void setResponseList(List<SimpleResponseList> responseList) {
+		this.responseList = responseList;
 	}
 	
 	public List<String> getList() {

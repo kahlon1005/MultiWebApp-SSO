@@ -9,15 +9,15 @@
 </h:head>
 
 <h:body>
+	<ui:param name="_newContainer" value="#{classification.newContainer}"/>
+	<ui:param name="_newQuestion" value="#{classification.newQuestion}"/>
 	
-	<h:form id="container">
-		<div>
-			<ui:param name="_container" value="#{classification.container}" />
-			<h:outputText id="classification" value="#{_container.text}" />
-		</div>
-		<br />
-		<div id="questions">
-			<ui:repeat var="_question" value="#{_container.questions}">
+	<div>#{_newContainer.text}</div>
+	<br/>
+	
+	
+	<div id="questions">
+			<ui:repeat var="_question" value="#{_newContainer.questions}">
 				<div>#{_question.text}</div>
 				<h:panelGroup layout="block" rendered="#{_question.type == 'SINGLE'}">					
 					<h:selectOneRadio value="#{_question.value}">
@@ -35,14 +35,25 @@
 				<br />
 			</ui:repeat>			
 		</div>
-		<br/>
+	<br/>
+	<div>Add survey questions. </div>
+	<h:form>
+		<h:panelGrid columns="1">
+			<h:selectOneMenu value="#{classification.questionType}" valueChangeListener="#{classification.onQuestionTypeChange}" onchange="submit()">
+				<f:selectItem itemValue="MULTIPLE" itemLabel="Multi-Select"/>
+				<f:selectItem itemValue="SINGLE" itemLabel="Single-Select"/>
+				<f:selectItem itemValue="TEXT" itemLabel="Text Input"/>
+			</h:selectOneMenu>
+			
+			
+			<h:inputText value="#{_newQuestion.text}"/>
+			
+		</h:panelGrid>
 		<h:panelGrid columns="2" cellspacing="10">
 			<h:commandLink value="Back" action="home.xhtml?faces-redirect=true"/>
-			<h:commandButton value="Submit" action="#{classification.save}"/>
-		</h:panelGrid>
+			<h:commandButton value="Add Another" actionListener="#{classification.addSurveyQuestion}"/>
+		</h:panelGrid>		
 	</h:form>
-
-
 </h:body>
 
 </html>

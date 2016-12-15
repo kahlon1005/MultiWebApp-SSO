@@ -13,9 +13,13 @@
 		<h4>Welcome #{loginController.loginUsername}</h4>
 		
 		<h:form>
-			<h:commandButton value="Logout" action="#{loginController.logout}"/>
+			<h:panelGrid columns="1">
+				<h:commandButton value="Logout" action="#{loginController.logout}"/>
+				<h:commandLink value="Classification" action="classification.xhtml?faces-redirect=true"/>
+				<h:commandLink value="Add Survey" action="addsurvey.xhtml?faces-redirect=true"/>				
+			</h:panelGrid>
 			
-			<h:commandLink value="Classification" action="classification.xhtml?faces-redirect=true"/>
+			
 		</h:form>
 		
     </h:body>

@@ -1,13 +1,16 @@
 package com.web.login;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.web.login.SimpleSurveyQuestion.QuestionType;
 
 public class SimpleContainer{
 	
 	private String name = "";
 	private String label = "";
 	private String text = "";		
-	List<SimpleSurveyQuestion> questions;
+	List<SimpleSurveyQuestion> questions = new ArrayList<SimpleSurveyQuestion>();
 	
 	public String getName() {
 		return name;
@@ -32,6 +35,12 @@ public class SimpleContainer{
 	}
 	public void setQuestions(List<SimpleSurveyQuestion> questions) {
 		this.questions = questions;
+	}
+	
+	public void addQuestion(SimpleSurveyQuestion q, QuestionType type){
+		q.setType(type);
+		System.out.println("Question Type " + q.getType());
+		this.getQuestions().add(q);			
 	}
 	
 	

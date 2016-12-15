@@ -6,8 +6,13 @@ import java.util.List;
 public class MultipleSelectQuestion extends ResponseListQuestion{
 
 	private List<String> values ; 
+
 	
-	
+	public MultipleSelectQuestion(SimpleSurveyQuestion q) {
+		
+	}
+
+
 	public MultipleSelectQuestion() {
 		this.setType(QuestionType.MULTIPLE);
 		values = new ArrayList<String>();

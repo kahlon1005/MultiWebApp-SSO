@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 
 import com.web.login.SimpleSurveyQuestion.QuestionType;
@@ -17,6 +18,28 @@ public class ClassificationController implements Serializable {
 	private static final long serialVersionUID = 7934702053668909263L;
 
 	SimpleContainer container;
+
+	SimpleContainer newContainer = new SimpleContainer();	
+	List<SimpleResponseList>  responseList = new ArrayList<SimpleResponseList>();
+	
+	QuestionType questionType = QuestionType.MULTIPLE;
+	SimpleSurveyQuestion newQuestion = new MultipleSelectQuestion();
+	
+	public void onQuestionTypeChange(ValueChangeEvent e){
+		addNewQuestion(e.getNewValue().toString());
+	}
+	
+	public void addNewQuestion(String type){
+		if (QuestionType.MULTIPLE.equals(type)){
+			newQuestion = new MultipleSelectQuestion();
+		}else if(QuestionType.SINGLE.equals(type)){
+			newQuestion = new SingleSelectQuestion();
+		}else if(QuestionType.TEXT.equals(type)){
+			newQuestion = new TextInputQuestion();
+		}else{
+			newQuestion = new SimpleSurveyQuestion();
+		}
+	}
 	
 	@PostConstruct
 	public void init() {
@@ -71,6 +94,25 @@ public class ClassificationController implements Serializable {
 
 	}
 	
+	public String addSurvey(){
+		System.out.println("add new survey ...");
+		return "addsurveyquestion.xhtml?faces-redirect=true";
+	}
+	
+	public void addSurveyQuestion(){		
+		System.out.println("add new question ..." + this.questionType);
+		newContainer.addQuestion(newQuestion, questionType);
+		addNewQuestion(questionType.name());
+	}
+	
+	public void removeSurveyQuestion(){
+		System.out.println("remove question ...");
+	}
+	
+	public void addResponseList(){
+		System.out.println("add response list ...");
+	}
+	
 	public String save(){
 		print("Save Questions ...");
 		print(container.getText());
@@ -99,6 +141,39 @@ public class ClassificationController implements Serializable {
 	public void setContainer(SimpleContainer container) {
 		this.container = container;
 	}
+
+	public SimpleContainer getNewContainer() {
+		return newContainer;
+	}
+
+	public void setNewContainer(SimpleContainer newContainer) {
+		this.newContainer = newContainer;
+	}
+
+	public SimpleSurveyQuestion getNewQuestion() {
+		return newQuestion;
+	}
+
+	public void setNewQuestion(SimpleSurveyQuestion newQuestion) {
+		this.newQuestion = newQuestion;
+	}
+
+	public QuestionType getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(QuestionType questionType) {
+		this.questionType = questionType;
+	}
+
+	public List<SimpleResponseList> getResponseList() {
+		return responseList;
+	}
+
+	public void setResponseList(List<SimpleResponseList> responseList) {
+		this.responseList = responseList;
+	}
+
 	
 	
 }
