@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<div>Survey List</div>
+		<h:form>
+			<h:dataTable var="_container" value="#{survey.containers}">
+				<h:column>
+					<f:facet name="header">Title</f:facet>
+					<h:commandLink value="#{_container.text}" action="#{survey.doEdit}">
+						<f:setPropertyActionListener target="#{survey.selected}" value="#{_container}" />
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>		
+		</h:form>
+</h:body>
+
+</html>

@@ -1,4 +1,4 @@
-package com.web.login;
+package com.survey.model;
 
 public class SimpleResponseList{
 

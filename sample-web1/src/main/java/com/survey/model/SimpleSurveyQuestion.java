@@ -1,4 +1,4 @@
-package com.web.login;
+package com.survey.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class SimpleSurveyQuestion{
 	private String text = "";
 	private String id = "";
 	
-	enum QuestionType{SINGLE, MULTIPLE, TEXT}
+	public enum QuestionType{SINGLE, MULTIPLE, TEXT}
 	
 	
 	public QuestionType getType() {

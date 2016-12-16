@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Prime | Survey</title>
+</h:head>
+
+<h:body>
+	This page is used for Survey
+	<br/>
+	<h:panelGroup rendered="#{survey.selected eq null}">
+		<ui:include src="include/surveylist.xhtml" />		
+	</h:panelGroup>
+	<h:panelGroup rendered="#{survey.selected ne null}">
+		<h:outputText value="#{survey.selected.text}"/>
+		<h:panelGroup id="questions" layout="block">
+			<ui:include src="include/questionlist.xhtml" />
+		</h:panelGroup>
+		<h:panelGroup id="newQuestion" layout="block">
+			<ui:include src="include/add.xhtml" />
+		</h:panelGroup>
+		<h:form>
+			<h:commandLink value="add question" />
+			<br/>
+			<h:commandLink value="add page"/>
+		</h:form>
+	</h:panelGroup>
+
+	<h:form>
+		<h:commandButton value="Logout" action="#{loginController.logout}"/>
+	</h:form>
+</h:body>
+
+
+</html>

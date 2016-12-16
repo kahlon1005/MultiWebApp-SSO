@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<h:panelGroup>
+		<ui:param name="_newContainer" value="#{survey.newContainer}"/>
+		
+		<div>#{_newContainer.text}</div>
+		<br/>
+		<div id="questions">
+			<ui:repeat var="_question" value="#{_newContainer.questions}">
+			<div>#{_question.text}</div>
+					<h:panelGroup layout="block" rendered="#{_question.type == 'SINGLE'}">					
+						<h:selectOneRadio value="#{_question.value}">
+							<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
+						</h:selectOneRadio>						
+					</h:panelGroup>
+					<h:panelGroup layout="block" rendered="#{_question.type == 'MULTIPLE'}">				 
+						<h:selectManyCheckbox value="#{_question.list}">
+							<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
+						</h:selectManyCheckbox>
+					</h:panelGroup>
+					<h:panelGroup layout="block" rendered="#{_question.type == 'TEXT'}">
+						<h:inputText value="#{_question.value}"/>
+					</h:panelGroup>
+					<br />
+				</ui:repeat>			
+			</div>
+		<br/>
+	</h:panelGroup>	
+</h:body>
+
+
+</html>

@@ -1,31 +1,57 @@
-package com.web.login;
+package com.survey.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.web.login.SimpleSurveyQuestion.QuestionType;
+import com.survey.model.MultipleSelectQuestion;
+import com.survey.model.ResponseListQuestion;
+import com.survey.model.SimpleContainer;
+import com.survey.model.SimpleResponseList;
+import com.survey.model.SimpleSurveyQuestion;
+import com.survey.model.SingleSelectQuestion;
+import com.survey.model.TextInputQuestion;
+import com.survey.model.SimpleSurveyQuestion.QuestionType;
+import com.survey.service.SurveyService;
 
-@Named("classification")
-@SessionScoped
-public class ClassificationController implements Serializable {
-
+@Named("survey")
+@ViewScoped
+public class SurveyManager implements Serializable{
 	private static final long serialVersionUID = 7934702053668909263L;
 
+	@Inject 
+	SurveyService service;
+	
 	SimpleContainer container;
 
 	SimpleContainer newContainer = new SimpleContainer();	
 	List<SimpleResponseList>  responseList = new ArrayList<SimpleResponseList>();
 	
-	QuestionType questionType = QuestionType.MULTIPLE;
+	private SimpleContainer selected;
+	private List<SimpleContainer> containers = new ArrayList<SimpleContainer>();
+	
+	
 	SimpleSurveyQuestion newQuestion = new MultipleSelectQuestion();
 	SimpleResponseList newResponse = new SimpleResponseList();
 	List<SimpleResponseList> responses = new ArrayList<SimpleResponseList>();
+	
+	QuestionType questionType = QuestionType.MULTIPLE;
+	
+	@PostConstruct
+	public void init(){
+		containers = service.getAll();
+	}
+		
+	public String doEdit(){
+		return "";
+	}
+	
 	
 	public void onQuestionTypeChange(ValueChangeEvent e){
 		this.questionType = (QuestionType) e.getNewValue();
@@ -52,59 +78,6 @@ public class ClassificationController implements Serializable {
 	
 	public void removeResponse(){
 		responses.remove(0);
-	}
-	
-	@PostConstruct
-	public void init() {
-		initialize();	
-	}
-	
-	private void initialize(){
-		container = new SimpleContainer();
-		container.setText("Loan application");
-		
-		List<SimpleSurveyQuestion> questions = new ArrayList<SimpleSurveyQuestion>();
-		
-		ResponseListQuestion q1 = new SingleSelectQuestion();
-		q1.setText("Are you 19 or over?");
-		
-		List<SimpleResponseList> rspLst = new ArrayList<SimpleResponseList>();
-		SimpleResponseList e1 = new SimpleResponseList();
-		e1.setText("Yes");
-		e1.setValue("Y");
-		rspLst.add(e1);
-
-		SimpleResponseList e2 = new SimpleResponseList();
-		e2.setText("No");
-		e2.setValue("N");
-		rspLst.add(e2);
-
-		q1.setResponseList(rspLst);
-		questions.add(q1);
-		
-		ResponseListQuestion q2 = new MultipleSelectQuestion();
-		q2.setText("No of co-applicant?");
-		
-		List<SimpleResponseList> rspLst2 = new ArrayList<SimpleResponseList>();
-		SimpleResponseList e3 = new SimpleResponseList();
-		e3.setText("One");
-		e3.setValue("1");
-		rspLst2.add(e3);
-
-		SimpleResponseList e4 = new SimpleResponseList();
-		e4.setText("Two");
-		e4.setValue("2");
-		rspLst2.add(e4);
-
-		q2.setResponseList(rspLst2);
-		questions.add(q2);
-		
-		SimpleSurveyQuestion q3 = new TextInputQuestion();
-		q3.setText("Enter your name");
-		questions.add(q3);
-		
-		container.setQuestions(questions);
-
 	}
 	
 	public String addSurvey(){
@@ -143,7 +116,7 @@ public class ClassificationController implements Serializable {
 				print(q.getText() +"  : "+ q.getValue());
 			}
 		}
-		initialize();
+		init();
 		return "success.xhtml?faces-redirect=true";
 	}
 	
@@ -205,6 +178,22 @@ public class ClassificationController implements Serializable {
 
 	public void setResponses(List<SimpleResponseList> responses) {
 		this.responses = responses;
+	}
+	
+	public List<SimpleContainer> getContainers() {
+		return containers;
+	}
+
+	public void setContainers(List<SimpleContainer> containers) {
+		this.containers = containers;
+	}
+
+	public SimpleContainer getSelected() {
+		return selected;
+	}
+
+	public void setSelected(SimpleContainer selected) {
+		this.selected = selected;
 	}
 	
 }

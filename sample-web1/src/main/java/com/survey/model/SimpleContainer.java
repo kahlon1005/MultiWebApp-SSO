@@ -1,9 +1,9 @@
-package com.web.login;
+package com.survey.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.web.login.SimpleSurveyQuestion.QuestionType;
+import com.survey.model.SimpleSurveyQuestion.QuestionType;
 
 public class SimpleContainer{
 	

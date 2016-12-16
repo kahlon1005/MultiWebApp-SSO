@@ -1,4 +1,4 @@
-package com.web.login;
+package com.survey.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 @SessionScoped
 @Named("loginController")
-public class LoginController implements Serializable {
+public class LoginManager implements Serializable {
 	
 	private static final long serialVersionUID = 4022264384801621436L;
 	
@@ -37,7 +37,7 @@ public class LoginController implements Serializable {
 		try{
 			request.login(username, password);	
 			System.out.println("logged in at  "+ new Date()  + "   "+ this.username);
-			String navigateString = "/user/home.xhtml";			
+			String navigateString = "/user/survey/index.xhtml";			
 			facesContext.getExternalContext().redirect(request.getContextPath() + navigateString);			
 		} catch (ServletException e) {
 			System.out.println("Invalid username password, login denied.");

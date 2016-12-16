@@ -1,4 +1,4 @@
-package com.web.login;
+package com.survey.model;
 
 import java.util.ArrayList;
 import java.util.List;
