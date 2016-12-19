@@ -3,6 +3,8 @@ package com.survey.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.JCaiF.ComponentContainer;
+
 import com.survey.model.SimpleSurveyQuestion.QuestionType;
 
 public class SimpleContainer{
@@ -11,6 +13,7 @@ public class SimpleContainer{
 	private String label = "";
 	private String text = "";		
 	List<SimpleSurveyQuestion> questions = new ArrayList<SimpleSurveyQuestion>();
+	private SimpleContainer parent;
 	
 	public String getName() {
 		return name;
@@ -37,6 +40,12 @@ public class SimpleContainer{
 		this.questions = questions;
 	}
 	
+	public SimpleContainer getParent() {
+		return parent;
+	}
+	public void setParent(SimpleContainer parent) {
+		this.parent = parent;
+	}
 	public void addQuestion(SimpleSurveyQuestion q){
 		this.getQuestions().add(q);			
 	}

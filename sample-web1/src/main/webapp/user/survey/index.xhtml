@@ -20,12 +20,13 @@
 			<ui:include src="include/questionlist.xhtml" />
 		</h:panelGroup>
 		<h:panelGroup id="newQuestion" layout="block">
-			<ui:include src="include/add.xhtml" />
+			<ui:include src="include/addquestion.xhtml" />
 		</h:panelGroup>
 		<h:form>
+			<h:commandButton value="Back" rendered="#{survey.selected.parent ne null}"/>
 			<h:commandLink value="add question" />
 			<br/>
-			<h:commandLink value="add page"/>
+			<h:commandLink value="add page" actionListener="#{survey.addPage}"/>
 		</h:form>
 	</h:panelGroup>
 

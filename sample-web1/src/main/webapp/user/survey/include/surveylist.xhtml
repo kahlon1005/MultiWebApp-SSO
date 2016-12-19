@@ -7,13 +7,20 @@
 <h:body>
 	<div>Survey List</div>
 		<h:form>
-			<h:dataTable var="_container" value="#{survey.containers}">
-				<h:column>
+			<h:dataTable var="_container" value="#{survey.containers}" cellspacing="10">
+				<h:column>					
 					<f:facet name="header">Title</f:facet>
 					<h:commandLink value="#{_container.text}" action="#{survey.doEdit}">
 						<f:setPropertyActionListener target="#{survey.selected}" value="#{_container}"/>
 					</h:commandLink>
 				</h:column>
+				<h:column>
+					<h:commandButton value="Edit"/>
+				</h:column>
+				<h:column>
+					<h:commandButton value="Pre-View"/>
+				</h:column>
+				
 			</h:dataTable>
 			<h:commandButton value="Add New" actionListener="#{survey.addContainer}"/>		
 		</h:form>

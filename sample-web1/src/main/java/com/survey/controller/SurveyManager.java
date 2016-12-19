@@ -34,7 +34,6 @@ public class SurveyManager implements Serializable{
 	private List<SimpleContainer> containers = new ArrayList<SimpleContainer>();
 	List<SimpleResponseList> responses = new ArrayList<SimpleResponseList>();
 	
-	
 	SimpleSurveyQuestion newQuestion = new MultipleSelectQuestion();
 	SimpleResponseList newResponse = new SimpleResponseList();
 	
@@ -55,6 +54,14 @@ public class SurveyManager implements Serializable{
 		addNewQuestion();
 	}
 	
+	public void addPage(){
+		SimpleContainer container = new SimpleContainer();
+		container.setParent(selected);
+		container.setText(selected.getText());
+		selected = container;
+		System.out.println("Add Page.");
+	}
+	
 	public void addNewQuestion(){
 		if (QuestionType.MULTIPLE.equals(questionType)){
 			this.newQuestion = new MultipleSelectQuestion();
@@ -73,10 +80,6 @@ public class SurveyManager implements Serializable{
 		newResponse = new SimpleResponseList();
 	}
 	
-	public void removeResponse(){
-		responses.remove(0);
-	}
-	
 	public void addContainer(){
 		if(selected == null){
 			selected = new SimpleContainer();
@@ -86,7 +89,6 @@ public class SurveyManager implements Serializable{
 	}
 	
 	public void addSurveyQuestion(){		
-		System.out.println("add new question ..." + this.newQuestion.getType());
 		if(newQuestion instanceof ResponseListQuestion){
 			newQuestion.setResponseList(responses);
 			responses = new ArrayList<SimpleResponseList>();
@@ -95,17 +97,11 @@ public class SurveyManager implements Serializable{
 		addNewQuestion();
 	}
 	
-	public void removeSurveyQuestion(){
-		System.out.println("remove question ...");
-	}
-	
 	public void addResponseList(){
 		System.out.println("add response list ...");
 	}
 	
 	public String save(){
-		print("Save Questions ...");
-		print(selected.getText());
 		for(SimpleSurveyQuestion q : selected.getQuestions()){
 			if(QuestionType.MULTIPLE.equals(q.getType())){				
 				List<String> e = q.getList();;
@@ -179,5 +175,7 @@ public class SurveyManager implements Serializable{
 	public void setSelected(SimpleContainer selected) {
 		this.selected = selected;
 	}
+
+	
 	
 }
