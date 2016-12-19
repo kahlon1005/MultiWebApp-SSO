@@ -9,13 +9,13 @@
 </h:head>
 
 <h:body>
-	This page is used for Survey
-	<br/>
 	<h:panelGroup rendered="#{survey.selected eq null}">
 		<ui:include src="include/surveylist.xhtml" />		
 	</h:panelGroup>
-	<h:panelGroup rendered="#{survey.selected ne null}">
-		<h:outputText value="#{survey.selected.text}"/>
+	<h:panelGroup rendered="#{survey.selected ne null and empty survey.selected.text}">
+		<ui:include src="include/addcontainer.xhtml" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{survey.selected ne null and not empty survey.selected.text}">
 		<h:panelGroup id="questions" layout="block">
 			<ui:include src="include/questionlist.xhtml" />
 		</h:panelGroup>

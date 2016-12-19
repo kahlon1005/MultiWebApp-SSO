@@ -28,18 +28,15 @@ public class SurveyManager implements Serializable{
 	@Inject 
 	SurveyService service;
 	
-	SimpleContainer container;
-
-	SimpleContainer newContainer = new SimpleContainer();	
 	List<SimpleResponseList>  responseList = new ArrayList<SimpleResponseList>();
 	
 	private SimpleContainer selected;
 	private List<SimpleContainer> containers = new ArrayList<SimpleContainer>();
+	List<SimpleResponseList> responses = new ArrayList<SimpleResponseList>();
 	
 	
 	SimpleSurveyQuestion newQuestion = new MultipleSelectQuestion();
 	SimpleResponseList newResponse = new SimpleResponseList();
-	List<SimpleResponseList> responses = new ArrayList<SimpleResponseList>();
 	
 	QuestionType questionType = QuestionType.MULTIPLE;
 	
@@ -80,9 +77,12 @@ public class SurveyManager implements Serializable{
 		responses.remove(0);
 	}
 	
-	public String addSurvey(){
-		System.out.println("add new survey ...");
-		return "addsurveyquestion.xhtml?faces-redirect=true";
+	public void addContainer(){
+		if(selected == null){
+			selected = new SimpleContainer();
+		} else{
+			containers.add(selected);
+		}
 	}
 	
 	public void addSurveyQuestion(){		
@@ -91,7 +91,7 @@ public class SurveyManager implements Serializable{
 			newQuestion.setResponseList(responses);
 			responses = new ArrayList<SimpleResponseList>();
 		}
-		newContainer.addQuestion(newQuestion);
+		selected.addQuestion(newQuestion);
 		addNewQuestion();
 	}
 	
@@ -105,8 +105,8 @@ public class SurveyManager implements Serializable{
 	
 	public String save(){
 		print("Save Questions ...");
-		print(container.getText());
-		for(SimpleSurveyQuestion q : container.getQuestions()){
+		print(selected.getText());
+		for(SimpleSurveyQuestion q : selected.getQuestions()){
 			if(QuestionType.MULTIPLE.equals(q.getType())){				
 				List<String> e = q.getList();;
 				for(String s : e ){
@@ -124,22 +124,6 @@ public class SurveyManager implements Serializable{
 		System.out.println(msg);
 	}
 	
-	public SimpleContainer getContainer() {
-		return container;
-	}
-
-	public void setContainer(SimpleContainer container) {
-		this.container = container;
-	}
-
-	public SimpleContainer getNewContainer() {
-		return newContainer;
-	}
-
-	public void setNewContainer(SimpleContainer newContainer) {
-		this.newContainer = newContainer;
-	}
-
 	public SimpleSurveyQuestion getNewQuestion() {
 		return newQuestion;
 	}
