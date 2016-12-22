@@ -12,23 +12,26 @@
 	<h:panelGroup rendered="#{survey.selected eq null}">
 		<ui:include src="include/surveylist.xhtml" />		
 	</h:panelGroup>
-	<h:panelGroup rendered="#{survey.selected ne null and empty survey.selected.text}">
+	<h:panelGroup id="questionPanel" rendered="#{survey.selected ne null and empty survey.selected.text}">
 		<ui:include src="include/addcontainer.xhtml" />
 	</h:panelGroup>
 	<h:panelGroup rendered="#{survey.selected ne null and not empty survey.selected.text}">
 		<h:panelGroup id="questions" layout="block">
 			<ui:include src="include/questionlist.xhtml" />
 		</h:panelGroup>
-		
-		<h:form>
-			<h:commandButton value="Back" rendered="#{survey.selected.parent ne null}"/>
-			<br/>
-			<h:commandLink value="add page" actionListener="#{survey.addPage}"/>
-		</h:form>
 	</h:panelGroup>
 
 	<h:form>
-		<h:commandButton value="Logout" action="#{loginController.logout}"/>
+		<h:panelGrid cellspacing="10" columns="2">
+			<h:commandButton value="Back" rendered="#{survey.selected ne null}">
+				<f:setPropertyActionListener target="#{survey.selected}" value="#{null}"/>
+				<f:setPropertyActionListener target="#{survey.mode}" value="NONE"/>				
+			</h:commandButton>
+			
+			
+		</h:panelGrid>
+		
+		
 	</h:form>
 </h:body>
 

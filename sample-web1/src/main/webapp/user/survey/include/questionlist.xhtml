@@ -8,10 +8,15 @@
 	<h:form>
 		<div>#{survey.selected.text}</div>
 		<br/>
-		<ui:repeat var="_containers" value="#{survey.selectedContainers}">
+		<ui:repeat var="_container" value="#{survey.selectedContainers}">
 			<div id="_questions">
-				<ui:repeat var="_question" value="#{_containers.questions}">
-					<div>#{_question.text}</div>
+				<ui:repeat var="_question" value="#{_container.questions}">
+					<div>#{_question.text}  
+						<h:commandLink value="edit">
+							<f:setPropertyActionListener target="#{survey.selectedQuestion}" value="#{_question}"/>
+							<f:setPropertyActionListener target="#{survey.mode}" value="EDIT"/>
+						</h:commandLink>
+					</div>
 					<h:panelGroup layout="block" rendered="#{_question.type == 'SINGLE'}">					
 						<h:selectOneRadio value="#{_question.value}">
 							<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
@@ -27,17 +32,37 @@
 							<h:inputText value="#{_question.value}"/>
 						</div>
 					</h:panelGroup>
-					<br/>					
-				</ui:repeat>				
-				<h:commandLink value="add question">
-					<f:setPropertyActionListener target="#{survey.mode}" value="ADD"/>
-				</h:commandLink>
+					<br/>
+					<h:panelGroup id="editQuestionPanel" layout="block" rendered="#{survey.mode eq 'EDIT' and survey.selectedQuestion eq _question}">
+						<br/>
+						<ui:include src="editquestion.xhtml" />
+					</h:panelGroup>
+									
+				</ui:repeat>
+							
+				<h:panelGrid cellspacing="10" columns="2" rendered="#{survey.mode ne 'ADD'}">					
+					<h:commandLink value="add question">
+						<f:setPropertyActionListener target="#{survey.selected}" value="#{_container}"/>
+						<f:setPropertyActionListener target="#{survey.mode}" value="ADD"/>												
+					</h:commandLink>
+					
+					<h:panelGroup rendered="#{_container.questions.size() gt 0}">
+						<h:commandLink value="add page" actionListener="#{survey.addPage(_container)}"/>
+					</h:panelGroup>
+															
+				</h:panelGrid>
+				
+				<h:panelGroup id="addQuestionPanel" layout="block" rendered="#{survey.selected eq _container and survey.mode eq 'ADD'}">
+					<ui:include src="addquestion.xhtml" />
+				</h:panelGroup>	
 				<br/>
 				<br/>
+				<div>#{selected.mode}</div>
 			</div>
 		</ui:repeat>
 		<br/><br/>
 	</h:form>
+	
 		
 </h:body>
 

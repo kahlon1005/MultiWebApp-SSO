@@ -37,6 +37,9 @@ public class SurveyManager implements Serializable{
 	List<SimpleResponseList> responses = new ArrayList<SimpleResponseList>();
 	
 	SimpleSurveyQuestion newQuestion = new MultipleSelectQuestion();
+	
+	SimpleSurveyQuestion selectedQuestion;
+	
 	SimpleResponseList newResponse = new SimpleResponseList();
 	
 	QuestionType questionType = QuestionType.MULTIPLE;
@@ -57,11 +60,11 @@ public class SurveyManager implements Serializable{
 		addNewQuestion();
 	}
 	
-	public void addPage(){
+	public void addPage(SimpleContainer c){
 		SimpleContainer container = new SimpleContainer();
-		container.setParent(selected);
-		container.setText(selected.getText());
-		selected.addChildren(container);
+		container.setParent(c);
+		container.setText(c.getText());
+		c.addChildren(container);
 		selected = container;		
 	}
 	
@@ -77,6 +80,8 @@ public class SurveyManager implements Serializable{
 		}
 		
 	}
+	
+	
 	
 	public void addNewResponse(){		
 		responses.add(newResponse);
@@ -99,6 +104,14 @@ public class SurveyManager implements Serializable{
 		}
 		selected.addQuestion(newQuestion);
 		addNewQuestion();
+	}
+	
+	public void editSurveyQuestion(){
+		
+	}
+	
+	public void deleteSurveyQuestion(){
+		
 	}
 	
 	public void addResponseList(){
@@ -188,12 +201,30 @@ public class SurveyManager implements Serializable{
 		this.mode = mode;
 	}
 
+	
+	public SimpleSurveyQuestion getSelectedQuestion() {
+		return selectedQuestion;
+	}
+
+	public void setSelectedQuestion(SimpleSurveyQuestion selectedQuestion) {
+		this.selectedQuestion = selectedQuestion;
+	}
+
 	public List<SimpleContainer> getSelectedContainers() {
-		selectedContainers = new ArrayList<SimpleContainer>();
-		selectedContainers.add(selected);
-		addChildContainer(selected);
+		selectedContainers = new ArrayList<SimpleContainer>();		
+		SimpleContainer rootNode = getRootNode(selected);
+		selectedContainers.add(rootNode);
+		addChildContainer(rootNode);
 		
 		return selectedContainers;
+	}
+	
+	private SimpleContainer getRootNode(SimpleContainer container){
+		if(container.hasParent()){
+			container = container.getParent();
+			getRootNode(container);
+		}
+		return container;
 	}
 
 	private void addChildContainer(SimpleContainer container){

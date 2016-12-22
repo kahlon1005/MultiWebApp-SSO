@@ -6,17 +6,18 @@
 
 <h:body>
 	<ui:param name="_newContainer" value="#{survey.selected}"/>
-	
-	<div>Add New Survey</div>
-	<h:form id="newSurveyForm">
-		<h:inputText id="title" value="#{_newContainer.text}" required="true" requiredMessage="Enter survey title"/>	
-		<h:panelGrid columns="2" cellspacing="10">
-			<h:commandLink immediate="true" value="Back">
-				<f:setPropertyActionListener target="#{survey.selected}" value="#{null}"/>
-			</h:commandLink>
-			<h:commandButton value="Submit" actionListener="#{survey.addContainer}"/>			
-		</h:panelGrid>		
-	</h:form>
+	<h:panelGroup>
+		<div>Add New Survey</div>
+		<h:form id="newSurveyForm">
+			<h:inputText id="title" value="#{_newContainer.text}" required="true" requiredMessage="Enter survey title"/>	
+			<h:panelGrid columns="2" cellspacing="10">
+				<h:commandLink immediate="true" value="Back">
+					<f:setPropertyActionListener target="#{survey.selected}" value="#{null}"/>
+				</h:commandLink>
+				<h:commandButton value="Submit" actionListener="#{survey.addContainer}"/>			
+			</h:panelGrid>		
+		</h:form>
+	</h:panelGroup>
 </h:body>
 
 

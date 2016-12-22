@@ -5,10 +5,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body >
-	<ui:param name="_newQuestion" value="#{survey.newQuestion}"/>
-	<ui:param name="_newResponse" value="#{survey.newResponse}"/>
+	<ui:param name="_selectedQuestion" value="#{survey.selectedQuestion}"/>	
 	<h:panelGroup layout="block" style="border:solid 1px #C3C3BD; background:#C3C3BD; max-width:25%">
-		<div>Add survey questions.</div>
+		<div>Edit question</div>
 	
 		<h:form>
 			<h:panelGrid columns="1">
@@ -18,26 +17,18 @@
 					<f:selectItem itemValue="TEXT" itemLabel="Text Input"/>
 				</h:selectOneMenu>
 				
-				<h:inputText value="#{_newQuestion.text}"/>
-				<h:panelGroup layout="block" rendered="#{_newQuestion.type == 'MULTIPLE'}">				 
+				<h:inputText value="#{_selectedQuestion.text}"/>
+				<h:panelGroup layout="block" rendered="#{_selectedQuestion.type == 'MULTIPLE'}">				 
 					Options
-					<h:selectManyCheckbox value="#{_newQuestion.list}" disabled="true">
-						<f:selectItems value="#{survey.responses}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
+					<h:selectManyCheckbox value="#{_selectedQuestion.list}" disabled="true">
+						<f:selectItems value="#{_selectedQuestion.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
 					</h:selectManyCheckbox>
-					Add New Options	
-					<h:inputText value="#{_newResponse.text}"/>
-					<h:commandButton value="Add" actionListener="#{survey.addNewResponse}"/>
-					<h:commandButton value="Remove"/>				
 				</h:panelGroup>
 				<h:panelGroup layout="block" rendered="#{_newQuestion.type == 'SINGLE'}">				 
 					Options
-					<h:selectOneRadio value="#{_newQuestion.value}" disabled="true">
-						<f:selectItems value="#{survey.responses}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
+					<h:selectOneRadio value="#{_selectedQuestion.value}" disabled="true">
+						<f:selectItems value="#{_selectedQuestion.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
 					</h:selectOneRadio>
-					Add New Options
-					<h:inputText value="#{_newResponse.text}"/>	
-					<h:commandButton value="Add" actionListener="#{survey.addNewResponse}"/>
-					<h:commandButton value="Remove"/>										
 				</h:panelGroup>
 			</h:panelGrid>
 			
@@ -46,7 +37,7 @@
 				<h:commandButton value="Cancel">				
 					<f:setPropertyActionListener target="#{survey.mode}" value="NONE"/>
 				</h:commandButton>
-				<h:commandButton value="Save" actionListener="#{survey.addSurveyQuestion}"/>
+				<h:commandButton value="Save" actionListener="#{survey.editSurveyQuestion}"/>
 			</h:panelGrid>		
 		</h:form>
 	</h:panelGroup>

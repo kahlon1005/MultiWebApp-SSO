@@ -22,7 +22,13 @@
 				</h:column>
 				
 			</h:dataTable>
-			<h:commandButton value="Add New" actionListener="#{survey.addContainer}"/>		
+			<h:panelGrid columns="2" cellspacing="10">	
+				<h:commandButton value="Add New" actionListener="#{survey.addContainer}"/>
+			
+				<h:panelGroup layout="block">
+					<h:commandButton value="Logout" action="#{loginController.logout}"/>
+				</h:panelGroup>
+			</h:panelGrid>		
 		</h:form>
 </h:body>
 
