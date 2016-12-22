@@ -2,6 +2,7 @@ package com.survey.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +32,7 @@ public class SurveyManager implements Serializable{
 	List<SimpleResponseList>  responseList = new ArrayList<SimpleResponseList>();
 	
 	private SimpleContainer selected;
+	private List<SimpleContainer>selectedContainers = new ArrayList<SimpleContainer>();
 	private List<SimpleContainer> containers = new ArrayList<SimpleContainer>();
 	List<SimpleResponseList> responses = new ArrayList<SimpleResponseList>();
 	
@@ -38,6 +40,8 @@ public class SurveyManager implements Serializable{
 	SimpleResponseList newResponse = new SimpleResponseList();
 	
 	QuestionType questionType = QuestionType.MULTIPLE;
+	
+	private String mode = "NONE";
 	
 	@PostConstruct
 	public void init(){
@@ -48,7 +52,6 @@ public class SurveyManager implements Serializable{
 		return "";
 	}
 	
-	
 	public void onQuestionTypeChange(ValueChangeEvent e){
 		this.questionType = (QuestionType) e.getNewValue();
 		addNewQuestion();
@@ -58,8 +61,8 @@ public class SurveyManager implements Serializable{
 		SimpleContainer container = new SimpleContainer();
 		container.setParent(selected);
 		container.setText(selected.getText());
-		selected = container;
-		System.out.println("Add Page.");
+		selected.addChildren(container);
+		selected = container;		
 	}
 	
 	public void addNewQuestion(){
@@ -79,13 +82,14 @@ public class SurveyManager implements Serializable{
 		responses.add(newResponse);
 		newResponse = new SimpleResponseList();
 	}
-	
+
 	public void addContainer(){
 		if(selected == null){
 			selected = new SimpleContainer();
 		} else{
-			containers.add(selected);
+			service.addContainer(selected);			
 		}
+		init();
 	}
 	
 	public void addSurveyQuestion(){		
@@ -163,7 +167,7 @@ public class SurveyManager implements Serializable{
 	public List<SimpleContainer> getContainers() {
 		return containers;
 	}
-
+	
 	public void setContainers(List<SimpleContainer> containers) {
 		this.containers = containers;
 	}
@@ -175,7 +179,34 @@ public class SurveyManager implements Serializable{
 	public void setSelected(SimpleContainer selected) {
 		this.selected = selected;
 	}
+	
+	public String getMode() {
+		return mode;
+	}
 
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public List<SimpleContainer> getSelectedContainers() {
+		selectedContainers = new ArrayList<SimpleContainer>();
+		selectedContainers.add(selected);
+		addChildContainer(selected);
+		
+		return selectedContainers;
+	}
+
+	private void addChildContainer(SimpleContainer container){
+		List<SimpleContainer> list = container.getChildren();
+		Iterator<SimpleContainer> it = list.iterator();
+		while (it.hasNext()) {
+			SimpleContainer c = it.next();
+			if(c.hasChild()){
+				addChildContainer(c);				
+			}
+			selectedContainers.add(c);
+		}
+	}
 	
 	
 }

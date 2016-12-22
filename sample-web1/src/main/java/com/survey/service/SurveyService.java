@@ -19,19 +19,23 @@ public class SurveyService {
 		data();
 	}
 	
+	private void data(){
+		SimpleContainer c1 = new SimpleContainer();
+		c1.setText("Loan application");
+		containers.add(c1);
+
+		SimpleContainer c2 = new SimpleContainer();
+		c2.setText("Travel Insurance");
+		containers.add(c2);		
+		
+	}
+	
 	public List<SimpleContainer> getAll(){
 		return containers; 
 	}
 	
-	private void data(){
-		addContainer("Loan application");
-		addContainer("Travel Insurance");
-	}
-	
-	private void addContainer(String text){		
-		SimpleContainer c1 = new SimpleContainer();
-		c1.setText(text);
-		containers.add(c1);
+	public void addContainer(SimpleContainer selected) {
+		containers.add(selected);
 	}
 	
 	

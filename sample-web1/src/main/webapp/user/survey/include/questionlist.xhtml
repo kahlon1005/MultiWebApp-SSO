@@ -5,14 +5,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body>
-	<h:panelGroup>
-		<ui:param name="_newContainer" value="#{survey.selected}"/>
-		
-		<div>#{_newContainer.text}</div>
+	<h:form>
+		<div>#{survey.selected.text}</div>
 		<br/>
-		<div id="questions">
-			<ui:repeat var="_question" value="#{_newContainer.questions}">
-			<div>#{_question.text}</div>
+		<ui:repeat var="_containers" value="#{survey.selectedContainers}">
+			<div id="_questions">
+				<ui:repeat var="_question" value="#{_containers.questions}">
+					<div>#{_question.text}</div>
 					<h:panelGroup layout="block" rendered="#{_question.type == 'SINGLE'}">					
 						<h:selectOneRadio value="#{_question.value}">
 							<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
@@ -24,13 +23,22 @@
 						</h:selectManyCheckbox>
 					</h:panelGroup>
 					<h:panelGroup layout="block" rendered="#{_question.type == 'TEXT'}">
-						<h:inputText value="#{_question.value}"/>
+						<div>
+							<h:inputText value="#{_question.value}"/>
+						</div>
 					</h:panelGroup>
-					<br />
-				</ui:repeat>			
+					<br/>					
+				</ui:repeat>				
+				<h:commandLink value="add question">
+					<f:setPropertyActionListener target="#{survey.mode}" value="ADD"/>
+				</h:commandLink>
+				<br/>
+				<br/>
 			</div>
-		<br/>
-	</h:panelGroup>	
+		</ui:repeat>
+		<br/><br/>
+	</h:form>
+		
 </h:body>
 
 
