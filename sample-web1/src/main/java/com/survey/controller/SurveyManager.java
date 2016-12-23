@@ -81,8 +81,6 @@ public class SurveyManager implements Serializable{
 		
 	}
 	
-	
-	
 	public void addNewResponse(){		
 		responses.add(newResponse);
 		newResponse = new SimpleResponseList();
@@ -107,7 +105,7 @@ public class SurveyManager implements Serializable{
 	}
 	
 	public void editSurveyQuestion(){
-		
+		this.mode = "NONE";
 	}
 	
 	public void deleteSurveyQuestion(){
