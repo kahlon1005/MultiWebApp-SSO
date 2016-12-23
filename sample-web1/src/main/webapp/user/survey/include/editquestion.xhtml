@@ -11,7 +11,7 @@
 	
 		<h:form>
 			<h:panelGrid columns="1">
-				<h:selectOneMenu value="#{survey.questionType}" valueChangeListener="#{survey.onQuestionTypeChange}" onchange="submit()">
+				<h:selectOneMenu value="#{_selectedQuestion.type}" valueChangeListener="#{survey.onQuestionTypeChange}" onchange="submit()">
 					<f:selectItem itemValue="MULTIPLE" itemLabel="Multi-Select"/>
 					<f:selectItem itemValue="SINGLE" itemLabel="Single-Select"/>
 					<f:selectItem itemValue="TEXT" itemLabel="Text Input"/>
@@ -20,19 +20,23 @@
 				<h:inputText value="#{_selectedQuestion.text}"/>
 				<h:panelGroup layout="block" rendered="#{_selectedQuestion.type == 'MULTIPLE'}">				 
 					Options
-					<h:selectManyCheckbox value="#{_selectedQuestion.list}" disabled="true">
-						<f:selectItems value="#{_selectedQuestion.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
-					</h:selectManyCheckbox>
+					<ui:repeat var="_response" value="#{_selectedQuestion.responseList}">
+						<div>
+							<input type="checkbox" disabled="true"/>
+							<h:inputText value="#{_response.text}"/>
+						</div>
+					</ui:repeat>					
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{_newQuestion.type == 'SINGLE'}">				 
+				<h:panelGroup layout="block" rendered="#{_selectedQuestion.type == 'SINGLE'}">
 					Options
-					<h:selectOneRadio value="#{_selectedQuestion.value}" disabled="true">
-						<f:selectItems value="#{_selectedQuestion.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
-					</h:selectOneRadio>
+					<ui:repeat var="_response" value="#{_selectedQuestion.responseList}">
+						<div>
+							<input type="radio" disabled="true"/>
+							<h:inputText value="#{_response.text}"/>
+						</div>
+					</ui:repeat>
 				</h:panelGroup>
 			</h:panelGrid>
-			
-			
 			<h:panelGrid columns="2" cellspacing="10">
 				<h:commandButton value="Cancel">				
 					<f:setPropertyActionListener target="#{survey.mode}" value="NONE"/>
