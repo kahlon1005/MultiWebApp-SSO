@@ -15,10 +15,13 @@
 					</h:commandLink>
 				</h:column>
 				<h:column>
-					<h:commandButton value="Edit"/>
+					<h:commandLink value="edit">
+						<f:setPropertyActionListener target="#{survey.selected}" value="#{_container}"/>
+						<f:setPropertyActionListener target="#{survey.mode}" value="EC"/>
+					</h:commandLink>					
 				</h:column>
 				<h:column>
-					<h:commandButton value="Pre-View"/>
+					<h:commandLink value="Preview" actionListener="#{survey.doStart(_container)}"/>
 				</h:column>
 				
 			</h:dataTable>

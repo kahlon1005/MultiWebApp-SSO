@@ -12,22 +12,28 @@
 	<h:panelGroup rendered="#{survey.selected eq null}">
 		<ui:include src="include/surveylist.xhtml" />		
 	</h:panelGroup>
-	<h:panelGroup id="questionPanel" rendered="#{survey.selected ne null and empty survey.selected.text}">
+	<h:panelGroup id="addContainerPanel" rendered="#{survey.selected ne null and empty survey.selected.text}">
 		<ui:include src="include/addcontainer.xhtml" />
 	</h:panelGroup>
-	<h:panelGroup rendered="#{survey.selected ne null and not empty survey.selected.text}">
-		<h:panelGroup id="questions" layout="block">
+	<h:panelGroup id="editContainerPanel" rendered="#{survey.selected ne null and not empty survey.selected.text}">
+		<h:panelGroup rendered="#{survey.mode eq 'EC'}">
+			<ui:include src="include/editcontainer.xhtml" />
+		</h:panelGroup>
+		<h:panelGroup id="questionListPanel" rendered="#{survey.mode ne 'EC' and survey.mode ne 'PR'}">		
 			<ui:include src="include/questionlist.xhtml" />
 		</h:panelGroup>
+		<h:panelGroup id="previewPanel" rendered="#{survey.mode eq 'PR'}">		
+			<ui:include src="include/preview.xhtml" />
+		</h:panelGroup>
 	</h:panelGroup>
-
+				
 	<h:form>
 		<h:panelGrid cellspacing="10" columns="2">
 			<h:commandButton value="Back" rendered="#{survey.selected ne null}">
 				<f:setPropertyActionListener target="#{survey.selected}" value="#{null}"/>
 				<f:setPropertyActionListener target="#{survey.mode}" value="NONE"/>				
 			</h:commandButton>
-			
+			<h:commandButton value="Preview" actionListener="#{survey.doStart(survey.selected)}" rendered="#{survey.selected ne null and not empty survey.selected.questions}"/>
 			
 		</h:panelGrid>
 		

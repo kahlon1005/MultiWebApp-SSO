@@ -6,16 +6,25 @@
 
 <h:body>
 	<h:form>
-		<div>#{survey.selected.text}</div>
+		<div>
+			#{survey.selected.text}  
+			<h:commandLink value="edit">
+				<f:setPropertyActionListener target="#{survey.mode}" value="EC"/>
+			</h:commandLink>
+		</div>
 		<br/>
 		<ui:repeat var="_container" value="#{survey.selectedContainers}">
 			<div id="_questions">
 				<ui:repeat var="_question" value="#{_container.questions}">
-					<div>#{_question.text}  
-						<h:commandLink value="edit">
-							<f:setPropertyActionListener target="#{survey.selectedQuestion}" value="#{_question}"/>
-							<f:setPropertyActionListener target="#{survey.mode}" value="EDIT"/>
-						</h:commandLink>
+					<div>  
+						<h:panelGrid columns="3" cellspacing="10">
+							<h:outputText value="#{_question.text}"/>
+							<h:commandLink value="edit">
+								<f:setPropertyActionListener target="#{survey.selectedQuestion}" value="#{_question}"/>
+								<f:setPropertyActionListener target="#{survey.mode}" value="EDIT"/>
+							</h:commandLink>
+							<h:commandLink value="delete" actionListener="#{survey.deleteSurveyQuestion(_question)}"/>
+						</h:panelGrid>
 					</div>
 					<h:panelGroup layout="block" rendered="#{_question.type == 'SINGLE'}">					
 						<h:selectOneRadio value="#{_question.value}">
@@ -56,8 +65,7 @@
 					<ui:include src="addquestion.xhtml" />
 				</h:panelGroup>	
 				<br/>
-				<br/>
-				<div>#{selected.mode}</div>
+				<br/>				
 			</div>
 		</ui:repeat>
 		<br/><br/>

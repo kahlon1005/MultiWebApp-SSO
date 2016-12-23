@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<h:form>
+		<div>Preview Mode</div>
+		<br/>
+		<div>#{survey.selected.text}</div>
+		<br/>
+		<ui:param name="_container" value="#{survey.selected}"/>
+			<div id="_questions">
+				<ui:repeat var="_question" value="#{_container.questions}">
+					<div>#{_question.text}</div>  
+					<h:panelGroup layout="block" rendered="#{_question.type == 'SINGLE'}">					
+						<h:selectOneRadio value="#{_question.value}">
+							<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
+						</h:selectOneRadio>						
+					</h:panelGroup>
+					<h:panelGroup layout="block" rendered="#{_question.type == 'MULTIPLE'}">				 
+						<h:selectManyCheckbox value="#{_question.list}">
+							<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
+						</h:selectManyCheckbox>
+					</h:panelGroup>
+					<h:panelGroup layout="block" rendered="#{_question.type == 'TEXT'}">
+						<div>
+							<h:inputText value="#{_question.value}"/>
+						</div>
+					</h:panelGroup>
+					<br/>
+					<h:panelGroup id="editQuestionPanel" layout="block" rendered="#{survey.mode eq 'EDIT' and survey.selectedQuestion eq _question}">
+						<br/>
+						<ui:include src="editquestion.xhtml" />
+					</h:panelGroup>
+									
+				</ui:repeat>
+				<br/>
+				<br/>
+				<h:panelGrid columns="5" cellspacing="10">
+					<h:commandButton value="Back" rendered="#{survey.back}" actionListener="#{survey.goBack}"/>
+					<div/><div/>					
+					<h:commandButton value="Next" rendered="#{survey.next}" actionListener="#{survey.goNext}"/>
+					<h:commandButton value="Finish" rendered="#{survey.finish}" actionListener="#{survey.doFinish}"/>
+				</h:panelGrid>
+			</div>		
+		<br/><br/>
+	</h:form>
+	
+		
+</h:body>
+
+
+</html>

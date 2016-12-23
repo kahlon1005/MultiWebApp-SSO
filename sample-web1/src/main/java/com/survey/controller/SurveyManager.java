@@ -46,6 +46,10 @@ public class SurveyManager implements Serializable{
 	
 	private String mode = "NONE";
 	
+	
+	private SimpleContainer next;
+	private SimpleContainer previous;
+	
 	@PostConstruct
 	public void init(){
 		containers = service.getAll();
@@ -89,10 +93,20 @@ public class SurveyManager implements Serializable{
 	public void addContainer(){
 		if(selected == null){
 			selected = new SimpleContainer();
-		} else{
+		} else if(selected.getText() == null ){
 			service.addContainer(selected);			
-		}
+		} 
 		init();
+	}
+	
+	public void editContainer(){
+		mode = "NONE";
+	}
+	
+	public void removeContainer(){
+		mode = "NONE";
+		containers.remove(selected);
+		selected = null;
 	}
 	
 	public void addSurveyQuestion(){		
@@ -108,8 +122,8 @@ public class SurveyManager implements Serializable{
 		this.mode = "NONE";
 	}
 	
-	public void deleteSurveyQuestion(){
-		
+	public void deleteSurveyQuestion(SimpleSurveyQuestion question){
+		selected.getQuestions().remove(question);
 	}
 	
 	public void addResponseList(){
@@ -208,6 +222,22 @@ public class SurveyManager implements Serializable{
 		this.selectedQuestion = selectedQuestion;
 	}
 
+	public SimpleContainer getNext() {
+		return next;
+	}
+
+	public void setNext(SimpleContainer next) {
+		this.next = next;
+	}
+
+	public SimpleContainer getPrevious() {
+		return previous;
+	}
+
+	public void setPrevious(SimpleContainer previous) {
+		this.previous = previous;
+	}
+
 	public List<SimpleContainer> getSelectedContainers() {
 		selectedContainers = new ArrayList<SimpleContainer>();		
 		SimpleContainer rootNode = getRootNode(selected);
@@ -237,5 +267,51 @@ public class SurveyManager implements Serializable{
 		}
 	}
 	
+	/**
+	 * Preview Survey 
+	 */
+	
+	
+	
+	public void doStart(SimpleContainer container){
+		this.mode = "PR";
+		this.selected = getRootNode(container);
+	}
+	
+	public boolean isBack(){
+		return this.selected.hasParent();
+	}
+	
+	public boolean isNext(){
+		if(selectedContainers.indexOf(selected) == selectedContainers.size() - 1){
+			return false;
+		}
+		return true; //this.selected.hasChild();
+	}
+	
+	
+	public boolean isFinish(){
+		return ! isNext();
+	}
+	
+	public void goNext(){
+		if(selectedContainers.indexOf(selected) < selectedContainers.size()){
+			int current = selectedContainers.indexOf(this.selected) + 1;
+			this.selected = selectedContainers.get(current);
+		}
+	}
+	
+	public void goBack(){
+		if(this.selected.hasParent()){
+			int current = selectedContainers.indexOf(this.selected) - 1;
+			this.selected = selectedContainers.get(current);
+		}
+	}
+	
+	public void doFinish(){
+		System.out.println("Finish Survey");
+		this.mode = "NONE";
+		this.selected = null;
+	}
 	
 }

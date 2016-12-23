@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<ui:param name="_selectedContainer" value="#{survey.selected}"/>
+	<h:panelGroup>
+		<div>Edit Survey</div>
+		<h:form id="editSurveyForm">
+			<h:inputText id="title" value="#{_selectedContainer.text}" required="true" requiredMessage="Enter survey title"/>	
+			<h:panelGrid columns="2" cellspacing="10">
+				<h:commandLink immediate="true" value="Back">
+					<f:setPropertyActionListener target="#{survey.mode}" value="NONE"/>
+				</h:commandLink>
+				<h:commandButton value="Save" actionListener="#{survey.editContainer}"/>							
+			</h:panelGrid>
+		</h:form>
+	</h:panelGroup>
+</h:body>
+
+
+</html>

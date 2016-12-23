@@ -57,5 +57,4 @@ public class SimpleSurveyQuestion{
 		this.id = id;
 	}
 	
-	
 }
