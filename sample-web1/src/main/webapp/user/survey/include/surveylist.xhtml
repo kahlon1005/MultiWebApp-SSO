@@ -7,7 +7,10 @@
 <h:body>
 	<div>Survey List</div>
 		<h:form>
-			<h:dataTable var="_container" value="#{survey.containers}" cellspacing="10">
+			<h:dataTable var="_container" value="#{survey.containers}" cellspacing="10" binding="#{_containerRow}">
+				<h:column name="SNO">
+					<h:outputText value="#{_containerRow.rowIndex + 1}"/>
+				</h:column>
 				<h:column>					
 					<f:facet name="header">Title</f:facet>
 					<h:commandLink value="#{_container.text}" action="#{survey.doEdit}">

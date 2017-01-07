@@ -13,7 +13,8 @@
 			</h:commandLink>
 		</div>
 		<br/>
-		<ui:repeat var="_container" value="#{survey.selectedContainers}">
+		<ui:repeat var="_container" value="#{survey.selectedContainers}" varStatus="_page">
+			page# : #{_page.index + 1}
 			<div id="_questions">
 				<ui:repeat var="_question" value="#{_container.questions}">
 					<div>  
