@@ -13,16 +13,15 @@
 				</h:column>
 				<h:column>					
 					<f:facet name="header">Title</f:facet>
-					<h:commandLink value="#{_container.text}" action="#{survey.doEdit}">
+					<h:outputText value="#{_container.text}"/>
+				</h:column>
+				<h:column>					
+					<f:facet name="action">Action</f:facet>
+					<h:commandLink value="edit" action="#{survey.doEdit}">
 						<f:setPropertyActionListener target="#{survey.selected}" value="#{_container}"/>
 					</h:commandLink>
 				</h:column>
-				<h:column>
-					<h:commandLink value="edit">
-						<f:setPropertyActionListener target="#{survey.selected}" value="#{_container}"/>
-						<f:setPropertyActionListener target="#{survey.mode}" value="EC"/>
-					</h:commandLink>					
-				</h:column>
+				
 				<h:column>
 					<h:commandLink value="Preview" actionListener="#{survey.doStart(_container)}"/>
 				</h:column>

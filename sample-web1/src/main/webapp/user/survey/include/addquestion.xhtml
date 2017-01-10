@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:body >
 	<ui:param name="_newQuestion" value="#{survey.newQuestion}"/>
 	<ui:param name="_newResponse" value="#{survey.newResponse}"/>
-	<h:panelGroup layout="block" style="border:solid 1px #C3C3BD; background:#C3C3BD; max-width:25%">
+	<h:panelGroup layout="block" style="border:solid 1px #C3C3BD; background:#C3C3BD; max-width:50%">
 		<div>Add survey questions.</div>
 	
 		<h:form>
@@ -18,26 +19,28 @@
 					<f:selectItem itemValue="TEXT" itemLabel="Text Input"/>
 				</h:selectOneMenu>
 				
-				<h:inputText value="#{_newQuestion.text}"/>
+				<h:inputText value="#{_newQuestion.text}" style="Width:100%" a:placeholder="Enter your Question"/>
 				<h:panelGroup layout="block" rendered="#{_newQuestion.type == 'MULTIPLE'}">				 
 					Options
-					<h:selectManyCheckbox value="#{_newQuestion.list}" disabled="true">
+					<h:selectManyCheckbox value="#{_newQuestion.list}" disabled="true" layout="pageDirection">
 						<f:selectItems value="#{survey.responses}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
 					</h:selectManyCheckbox>
-					Add New Options	
-					<h:inputText value="#{_newResponse.text}"/>
-					<h:commandButton value="Add" actionListener="#{survey.addNewResponse}"/>
-					<h:commandButton value="Remove"/>				
+					<div style="width:100%">
+						<h:inputText value="#{_newResponse.text}" a:placeholder="Enter new option here" style="width: calc(100% - 71px); margin-left:28px"/>
+						<h:commandButton value="Add" actionListener="#{survey.addNewResponse}" style="max-width:40px"/>
+												
+					</div>				
 				</h:panelGroup>
 				<h:panelGroup layout="block" rendered="#{_newQuestion.type == 'SINGLE'}">				 
 					Options
-					<h:selectOneRadio value="#{_newQuestion.value}" disabled="true">
+					<h:selectOneRadio value="#{_newQuestion.value}" disabled="true" layout="pageDirection">
 						<f:selectItems value="#{survey.responses}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
 					</h:selectOneRadio>
-					Add New Options
-					<h:inputText value="#{_newResponse.text}"/>	
-					<h:commandButton value="Add" actionListener="#{survey.addNewResponse}"/>
-					<h:commandButton value="Remove"/>										
+					<div style="width:100%">
+						<h:inputText value="#{_newResponse.text}" a:placeholder="Enter new option here" style="width:100%"/>	
+						<h:commandButton value="Add" actionListener="#{survey.addNewResponse}"/>
+						<h:commandButton value="Remove"/>
+					</div>
 				</h:panelGroup>
 			</h:panelGrid>
 			

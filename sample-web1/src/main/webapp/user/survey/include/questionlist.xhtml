@@ -13,8 +13,8 @@
 			</h:commandLink>
 		</div>
 		<br/>
-		<ui:repeat var="_container" value="#{survey.selectedContainers}" varStatus="_page">
-			page# : #{_page.index + 1}
+		<ui:repeat var="_container" value="#{survey.selectedContainers}">
+			page# : #{_container.label}
 			<div id="_questions">
 				<ui:repeat var="_question" value="#{_container.questions}">
 					<div>  
@@ -28,12 +28,12 @@
 						</h:panelGrid>
 					</div>
 					<h:panelGroup layout="block" rendered="#{_question.type == 'SINGLE'}">					
-						<h:selectOneRadio value="#{_question.value}">
+						<h:selectOneRadio value="#{_question.value}" layout="pageDirection">
 							<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
 						</h:selectOneRadio>						
 					</h:panelGroup>
 					<h:panelGroup layout="block" rendered="#{_question.type == 'MULTIPLE'}">				 
-						<h:selectManyCheckbox value="#{_question.list}">
+						<h:selectManyCheckbox value="#{_question.list}" layout="pageDirection">
 							<f:selectItems value="#{_question.responseList}" var="_entry" itemValue="#{_entry.value}" itemLabel="#{_entry.text}" />
 						</h:selectManyCheckbox>
 					</h:panelGroup>

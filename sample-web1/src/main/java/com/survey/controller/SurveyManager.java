@@ -56,6 +56,7 @@ public class SurveyManager implements Serializable{
 	}
 		
 	public String doEdit(){
+		populateContainers();
 		return "";
 	}
 	
@@ -68,6 +69,7 @@ public class SurveyManager implements Serializable{
 		SimpleContainer container = new SimpleContainer();
 		container.setParent(c);
 		container.setText(c.getText());
+		container.setLabel(Integer.toString(selectedContainers.size() + 1));
 		c.addChildren(container);
 		selected = container;
 		selectedContainers.add(selected);
@@ -248,17 +250,18 @@ public class SurveyManager implements Serializable{
 	
 	private void populateContainers(){
 		selectedContainers = new ArrayList<SimpleContainer>();		
-		SimpleContainer rootNode = getRootNode(selected);
-		selectedContainers.add(rootNode);
-		addChildContainer(rootNode);		
+		getRootContainer(selected);
+		selectedContainers.add(selected);
+		addChildContainer(selected);		
 	}
 	
-	private SimpleContainer getRootNode(SimpleContainer container){
+	private void getRootContainer(SimpleContainer container){
 		if(container.hasParent()){
 			container = container.getParent();
-			getRootNode(container);
-		}
-		return container;
+			getRootContainer(container);			
+		}else{
+			selected = container;
+		}		
 	}
 
 	private void addChildContainer(SimpleContainer container){
@@ -282,7 +285,7 @@ public class SurveyManager implements Serializable{
 	
 	public void doStart(SimpleContainer container){
 		this.mode = "PR";
-		this.selected = getRootNode(container);
+		getRootContainer(container);		
 	}
 	
 	public boolean isBack(){

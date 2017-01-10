@@ -22,10 +22,12 @@ public class SurveyService {
 	private void data(){
 		SimpleContainer c1 = new SimpleContainer();
 		c1.setText("Loan application");
+		c1.setLabel("1");
 		containers.add(c1);
 
 		SimpleContainer c2 = new SimpleContainer();
 		c2.setText("Travel Insurance");
+		c1.setLabel("1");
 		containers.add(c2);		
 		
 	}
