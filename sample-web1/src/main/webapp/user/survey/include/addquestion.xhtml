@@ -6,13 +6,15 @@
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:body >
+	
+	
 	<ui:param name="_newQuestion" value="#{survey.newQuestion}"/>
 	<ui:param name="_newResponse" value="#{survey.newResponse}"/>
 	<h:panelGroup layout="block" style="border:solid 1px #C3C3BD; background:#C3C3BD; max-width:50%">
-		<div>Add survey questions.</div>
+		<p>Add survey questions...</p>
 	
 		<h:form>
-			<h:panelGrid columns="1">
+			<h:panelGrid columns="1" columnClasses="tableClass">
 				<h:selectOneMenu value="#{survey.questionType}" valueChangeListener="#{survey.onQuestionTypeChange}" onchange="submit()">
 					<f:selectItem itemValue="MULTIPLE" itemLabel="Multi-Select"/>
 					<f:selectItem itemValue="SINGLE" itemLabel="Single-Select"/>
@@ -53,6 +55,8 @@
 			</h:panelGrid>		
 		</h:form>
 	</h:panelGroup>
+		
+	
 </h:body>
 
 
