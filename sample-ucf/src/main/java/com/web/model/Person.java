@@ -10,8 +10,10 @@ public class Person {
 	private String lastName;
 	
 	private List<UserFieldValue> userFields;
-
+	
+	
 	public Person() {
+		
 	}
 
 	public Person(Integer id, String firstName, String lastName) {
@@ -24,7 +26,14 @@ public class Person {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userFields = userFields;
+		this.userFields = update(userFields);		
+	}
+	
+	private List<UserFieldValue> update(List<UserFieldValue> userFields2) {
+		for(UserFieldValue fv : userFields2){
+			fv.setId(this.id);			
+		}
+		return userFields2;
 	}
 
 	public Integer getId() {
@@ -58,6 +67,15 @@ public class Person {
 
 	public void setUserFields(List<UserFieldValue> userFields) {
 		this.userFields = userFields;
+	}
+	
+	public String fieldValue(String field){
+		for(UserFieldValue vl : userFields){
+			if(field.equals(vl.getField())){
+				return vl.getValue();
+			}
+		}
+		return null;
 	}
 
 	@Override

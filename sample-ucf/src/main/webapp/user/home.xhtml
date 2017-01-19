@@ -3,7 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:p="http://primefaces.org/ui"  
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
@@ -16,46 +16,53 @@
 	<div>Person List</div>
 
 	<h3>using primefaces</h3>
-	
+
 	<p:dataTable var="_person" value="#{person.persons}">
-		<p:column headerText="Id">
-			<h:outputText value="#{_person.id}"></h:outputText>
-		</p:column>
 		<p:column headerText="First Name">
 			<h:outputText value="#{_person.firstName}"></h:outputText>
 		</p:column>
 		<p:column headerText="Last Name">
 			<h:outputText value="#{_person.lastName}"></h:outputText>
 		</p:column>
-		<p:columns var="_field" value="#{_person.userFields}">
-			<h:outputText value="#{_field.value}"></h:outputText>
+
+		<p:columns var="_column" value="#{person.columns}">
+			<f:facet name="header">
+				<h:outputText value="#{_column.label}" />
+			</f:facet>
+			<h:outputText value="#{_person.fieldValue(_column.fieldName)}" />
 		</p:columns>
 	</p:dataTable>
-	
-	<h3>using ui repeat</h3>
 
-	<ui:repeat var="_person" value="#{person.persons}">
-		<h:panelGrid columns="4">
-			<h:column>
-				<h:outputText value="#{_person.id}"></h:outputText>
-			</h:column>
-			<h:column>
-				<h:outputText value="#{_person.firstName}"></h:outputText>
-			</h:column>
-			<h:column>
-				<h:outputText value="#{_person.lastName}"></h:outputText>
-			</h:column>
 
-			<ui:repeat var="_field" value="#{_person.userFields}">
-				<h:column>
-					<h:outputText value="#{_field.value}"></h:outputText>
-				</h:column>
-			</ui:repeat>
+	<div>Add Person</div>
+
+	<ui:param name="_person" value="#{person.newPerson}" />
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel for="id" value="Id" />
+			<h:inputText id="id" value="#{_person.id}" />
+
+			<h:outputLabel for="firstName" value="First Name" />
+			<h:inputText id="firstName" value="#{_person.firstName}" />
+
+			<h:outputLabel for="lastName" value="Last Name" />
+			<h:inputText id="lastName" value="#{_person.lastName}" />
 		</h:panelGrid>
-	</ui:repeat>
+		<ui:repeat var="_field" value="#{_person.userFields}">
+			<h:panelGrid columns="2">
+				<h:outputText value="#{_field.field}" />
+				<h:inputText value="#{_field.value}" />
+			</h:panelGrid>
+		</ui:repeat>
+		<h:panelGrid columns="2">
+			<p:commandButton value="Save" action="#{person.save}" />
+			<h:link value="Home" outcome="home" />
+		</h:panelGrid>
+	</h:form>
 
 
-	<h:link value="Columns" target="columns.xhtml"/>
+	<h:link value="Columns" outcome="columns" />
+	
 
 </h:body>
 
