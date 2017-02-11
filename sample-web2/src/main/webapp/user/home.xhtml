@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"	
+	template="/WEB-INF/template.xhtml">
 
-    <h:head>
-        <title>Web2</title>
-    </h:head>
+	<ui:define name="head">
+		<title>Prime | Web2</title>
+	</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="common.css" />
 
-    <h:body>
 		<h3>Welcome to Web 2 #{loginController.loginUsername}</h3>
-    </h:body>
+		<h:outputText value="Test uses css styling" styleClass="red" />
 
-</html>
+		<div>Message from properties file</div>
+		<h:outputText value="Application Name : #{msg.application}" />
+		
+		
+		
+	</ui:define>
+</ui:composition>
+
+

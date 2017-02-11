@@ -11,7 +11,8 @@
 		<module>sample-web2</module>
 		<module>SampleApp</module>
     <module>sample-ucf</module>
-  </modules>
+    <module>sample-common</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

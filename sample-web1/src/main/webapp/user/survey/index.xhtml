@@ -9,6 +9,8 @@
 </h:head>
 
 <h:body>
+	<h:outputStylesheet library="css" name="common.css" />
+	<h:outputText value="#{msg.application}" styleClass="red"/>
 	<h:panelGroup rendered="#{survey.selected eq null}">
 		<ui:include src="include/surveylist.xhtml" />		
 	</h:panelGroup>

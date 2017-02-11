@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController implements Serializable {
 	
 	private static final long serialVersionUID = 4022264384801621436L;
+	private static final Logger logger = Logger.getLogger(LoginController.class.getName()); 
 	
 	@Inject
 	Principal principal;
@@ -36,15 +38,16 @@ public class LoginController implements Serializable {
 		HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
 		try{
 			request.login(username, password);	
-			System.out.println("User logged in at  "+ new Date()  + "   "+ this.username);
+			logger.info("User logged in at  "+ new Date()  + "   "+ this.username);
 			String navigateString = "/user/home.xhtml";			
 			facesContext.getExternalContext().redirect(request.getContextPath() + navigateString);			
 		} catch (ServletException e) {
-			System.out.println("Invalid username password, login denied.");
-			System.out.println(e.getMessage());
+			logger.info("Login failed...........");
+			logger.severe("Invalid username "+ username +" password, login denied.");
+			logger.severe(e.getMessage());
 		} catch (IOException e) {
-			System.out.println("IO Exception ...................");
-			e.printStackTrace();
+			logger.severe("IO Exception ...................");
+			logger.severe(e.getMessage());
 		}
 	}
 

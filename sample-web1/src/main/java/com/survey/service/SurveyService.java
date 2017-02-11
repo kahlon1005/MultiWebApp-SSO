@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
+import org.apache.log4j.Logger;
+
 import com.survey.model.SimpleContainer;
 
 
@@ -14,8 +16,17 @@ public class SurveyService {
 	
 	List<SimpleContainer> containers = new ArrayList<SimpleContainer>();
 	
+	private static final Logger logger = Logger.getLogger(SurveyService.class.getName());
+	
+			
 	@PostConstruct
 	private void init(){
+		logger.info("INFO message prineted");
+		
+		logger.warn("WARNING message printed");
+		
+		logger.error("SEVERE message printed");
+		
 		data();
 	}
 	

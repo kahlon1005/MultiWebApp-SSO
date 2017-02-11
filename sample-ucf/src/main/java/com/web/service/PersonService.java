@@ -46,7 +46,6 @@ public class PersonService implements Serializable {
 	}
 
 	public List<Person> create(Person person) {
-		System.out.println("Create person with Id " + person.getId());
 		map.put(map.size() + 1, person);
 		return getAll();
 	}
@@ -60,9 +59,7 @@ public class PersonService implements Serializable {
 		List<Person> ret = new ArrayList<Person>();
 		Iterator it = map.entrySet().iterator();
 		while (it.hasNext()) {			
-			Map.Entry<Integer, Person> person = (Map.Entry<Integer, Person>) it
-					.next();
-			System.out.println("Person added to output Result " + person.getKey());
+			Map.Entry<Integer, Person> person = (Map.Entry<Integer, Person>) it.next();
 			ret.add(person.getValue());
 		}
 		return ret;
