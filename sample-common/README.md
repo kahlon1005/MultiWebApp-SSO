@@ -4,7 +4,7 @@
 ###layout for shared Images, CSS and Java Script, Properties
 
 
-sample.pom
+sampleWebApp
 |
 ---sample-common.jar
 |	|
@@ -15,6 +15,8 @@ sample.pom
 |	|	+--com/sample
 |	|	|	|
 |	|	|	```messages.properties``
+|	|	|	```config.properties``
+|	|	|	```log4j.properties``
 |	|	|
 |	|	---META-INF
 |	|		+--fonts

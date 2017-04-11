@@ -12,6 +12,7 @@
 		<module>SampleApp</module>
     <module>sample-ucf</module>
     <module>sample-common</module>
+    <module>sample-email</module>
 	</modules>
 
 	<properties>
