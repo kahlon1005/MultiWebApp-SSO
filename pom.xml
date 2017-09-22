@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>root</groupId>
 	<artifactId>Sample</artifactId>
@@ -10,10 +11,14 @@
 		<module>sample-web1</module>
 		<module>sample-web2</module>
 		<module>SampleApp</module>
-    <module>sample-ucf</module>
-    <module>sample-common</module>
-    <module>sample-email</module>
-    <module>sample-excel</module>
+		<module>sample-ucf</module>
+		<module>sample-common</module>
+		<module>sample-email</module>
+		<module>sample-excel</module>
+		<module>sample-print</module>
+		<module>sample-ws</module>
+		<module>sample-xls</module>
+		<module>sample-js</module>
 	</modules>
 
 	<properties>

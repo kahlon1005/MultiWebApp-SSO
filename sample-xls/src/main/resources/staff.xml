@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Body>
+		<ns2:searchResponse xmlns:ns2="wsclient.wms.tecsys.com">
+			<return>
+				<result>
+					<company>
+						<staff>
+							<id>1001</id>
+							<firstname>yong</firstname>
+							<lastname>mook kim</lastname>
+							<nickname>mkyong</nickname>
+							<salary>100000</salary>
+						</staff>
+						<staff>
+							<id>2001</id>
+							<firstname>low</firstname>
+							<lastname>yin fong</lastname>
+							<nickname>fong fong</nickname>
+							<salary>200000</salary>
+						</staff>
+					</company>
+				</result>
+				<viewName>wms_cust</viewName>
+			</return>
+		</ns2:searchResponse>
+	</soap:Body>
+</soap:Envelope>

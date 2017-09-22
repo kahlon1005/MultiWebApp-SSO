@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://common.services.prime.com" xmlns:c="http://common.services.prime.com"
+	elementFormDefault="qualified" version="1.0">
+	<xsd:annotation>
+		<xsd:documentation>Common Web Service Example Type</xsd:documentation>
+	</xsd:annotation>
+	<xsd:simpleType name="yesnoEnumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="YES" />
+			<xsd:enumeration value="NO" />
+		</xsd:restriction>
+
+	</xsd:simpleType>
+	<xsd:complexType name="MonetaryValueType">
+		<xsd:sequence>
+			<xsd:element name="value" type="xsd:string" default="0" />
+			<xsd:element name="currencyLabel" type="xsd:string"
+				default="CAD" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DateRangeType">
+		<xsd:sequence>
+			<xsd:element name="dateFrom" type="xsd:date" />
+			<xsd:element name="dateTo" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>If not provide system current date shall be used.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="MandatoryDateRangeType">
+		<xsd:sequence>
+			<xsd:element name="dateFrom" type="xsd:date"></xsd:element>
+			<xsd:element name="dateTo" type="xsd:date" maxOccurs="1" minOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

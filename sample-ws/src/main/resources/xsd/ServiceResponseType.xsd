@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://type.common.services.prime.com" xmlns:prime="http://type.common.services.prime.com" elementFormDefault="qualified" version="1.0">
+
+
+    <xsd:simpleType name="severityType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="WARN"/>
+    		<xsd:enumeration value="MINOR"/>
+    		<xsd:enumeration value="MAJOR"/>
+    		<xsd:enumeration value="CRITICAL"/>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="serviceErrorType">
+    	<xsd:sequence>
+    		<xsd:element name="origin" type="xsd:string" maxOccurs="1" minOccurs="0"/>    		
+    		<xsd:element name="errorCode" type="xsd:int"/>
+    		<xsd:element name="errorMessage" type="xsd:string"/>
+    		<xsd:element name="timestamp" type="xsd:string"/>
+    		<xsd:element name="severity" minOccurs="0" type="prime:severityType"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

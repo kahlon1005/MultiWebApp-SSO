@@ -12,10 +12,11 @@
 		<h:outputStylesheet library="css" name="common.css" />
 
 		<h3>Welcome to Web 2 #{loginController.loginUsername}</h3>
-		<h:outputText value="Test uses css styling" styleClass="red" />
+		<h:outputText value="css styling from sample-common jar" styleClass="red" />
 
 		<div>Message from properties file</div>
-		<h:outputText value="Application Name : #{msg.application}" />
+		<h:outputText value="Application Name :"/>
+		<h:outputText value="#{msg.application}" styleClass="red"/>
 		
 		
 		

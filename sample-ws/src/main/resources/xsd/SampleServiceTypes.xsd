@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://sampleservice.services.prime.com" 
+	xmlns:c="http://common.services.prime.com"
+	xmlns:s="http://sample.services.prime.com"
+	elementFormDefault="qualified">
+	<xsd:annotation>
+		<xsd:documentation>Sample Service Types</xsd:documentation>
+	</xsd:annotation>
+	<xsd:import namespace="http://common.services.prime.com" schemaLocation="CommonTypes.xsd"></xsd:import>
+
+
+	<xsd:element name="priceRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="sku" type="xsd:string"></xsd:element>
+				<xsd:element name="storeNumber" type="xsd:string"></xsd:element>
+				<xsd:element name="dateRange" type="xsd:string"></xsd:element>
+				<xsd:element name="exactMatch" type="xsd:string"></xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="priceResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="store" type="xsd:string"></xsd:element>
+				<xsd:element name="prices" type="xsd:string"></xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+    <xsd:complexType name="NewComplexType"></xsd:complexType>
+</xsd:schema>

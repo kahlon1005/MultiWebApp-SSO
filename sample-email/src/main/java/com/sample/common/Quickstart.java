@@ -105,7 +105,7 @@ public class Quickstart {
         // Print the labels in the user's account.
         String user = "me";
         
-        String to = "wps4me@gmail.com";
+        String to = "kahlon1005@gmail.com";
 		String from = "wps4me@gmail.com";
 		String subject = "Test email";
 		String bodyText = "Testing email using gmail ...";
